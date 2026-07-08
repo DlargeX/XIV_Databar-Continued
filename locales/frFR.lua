@@ -147,7 +147,7 @@ L["NO_AUDIO_OUTPUT_DEVICES"] = "Aucun périphérique audio"
 
 -- Clock
 L["TIME_FORMAT"] = "Format de l'heure"
-L["DATE_FORMAT"] = "Format de date"
+L["CLOCK_DATE_FORMAT"] = "Format de date"
 L["USE_SERVER_TIME"] = "Utiliser l'heure du serveur"
 L["NEW_EVENT"] = "Nouvel événement"
 L["LOCAL_TIME"] = "Heure locale"
@@ -325,7 +325,7 @@ L["IMPORT_PROFILE"] = "Importer un profil"
 L["IMPORT_PROFILE_DESC"] = "Importer un profil d'un autre joueur"
 
 -- Changelog
-L["DATE_FORMAT"] = "%day%/%month%/%year%"
+L["CHANGELOG_DATE_FORMAT"] = "%day%/%month%/%year%"
 L["IMPORTANT"] = "Important" -- @no-translate
 L["NEW"] = "Nouveau"
 L["IMPROVEMENT"] = "Améliorations"

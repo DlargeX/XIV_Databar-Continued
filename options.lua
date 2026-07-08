@@ -197,7 +197,7 @@ function XIVBar:SetupOptions()
         local dateTable = {strsplit("/", data.release_date)}
         local dateString = data.release_date
         if #dateTable == 3 then
-            dateString = L["DATE_FORMAT"]
+            dateString = L["CHANGELOG_DATE_FORMAT"]
             dateString = gsub(dateString, "%%year%%", dateTable[1])
             dateString = gsub(dateString, "%%month%%", dateTable[2])
             dateString = gsub(dateString, "%%day%%", dateTable[3])

@@ -311,7 +311,7 @@ L["CURRENT_SEASON"] = true
 -- TODO: L["IMPORT_PROFILE_DESC"] = "Import a profile from another player"
 
 -- Changelog
-L["DATE_FORMAT"] = "%year%年%month%月%day%日"
+L["CHANGELOG_DATE_FORMAT"] = "%year%年%month%月%day%日"
 L["IMPORTANT"] = "重要"
 L["NEW"] = "新增"
 L["IMPROVEMENT"] = "改善"

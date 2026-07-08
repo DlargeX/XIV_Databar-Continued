@@ -311,7 +311,7 @@ L["IMPORT_PROFILE"] = "Импорт профиля"
 L["IMPORT_PROFILE_DESC"] = "Импортировать профиль другого игрока"
 
 -- Changelog
-L["DATE_FORMAT"] = "%day%.%month%.%year%"
+L["CHANGELOG_DATE_FORMAT"] = "%day%.%month%.%year%"
 L["IMPORTANT"] = "Важное"
 L["NEW"] = "Новое"
 L["IMPROVEMENT"] = "Улучшение"

@@ -149,7 +149,7 @@ L["NO_AUDIO_OUTPUT_DEVICES"] = "No Audio Output Devices"
 
 -- Clock
 L["TIME_FORMAT"] = "Time Format"
-L["DATE_FORMAT"] = "Date Format"
+L["CLOCK_DATE_FORMAT"] = "Date Format"
 L["USE_SERVER_TIME"] = "Use Server Time"
 L["NEW_EVENT"] = "New Event!"
 L["LOCAL_TIME"] = "Local Time"
@@ -327,7 +327,7 @@ L["IMPORT_PROFILE"] = "Import Profile"
 L["IMPORT_PROFILE_DESC"] = "Import a profile from another player"
 
 -- Changelog
-L["DATE_FORMAT"] = "%month%-%day%-%year%"
+L["CHANGELOG_DATE_FORMAT"] = "%month%-%day%-%year%"
 L["IMPORTANT"] = "Important"
 L["NEW"] = "New"
 L["IMPROVEMENT"] = "Improvement"

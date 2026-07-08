@@ -759,7 +759,7 @@ function ClockModule:GetConfig()
                 end
             },
             formatRow = XIVBar.ColumnRow(3, {
-                name = L["DATE_FORMAT"],
+                name = L["CLOCK_DATE_FORMAT"],
                 order = 3,
                 type = "select",
                 values = {
