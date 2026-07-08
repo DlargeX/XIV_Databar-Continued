@@ -311,7 +311,7 @@ L["IMPORT_PROFILE"] = "Profil Importieren"
 L["IMPORT_PROFILE_DESC"] = "Importiere ein Profil von einem anderen Spieler"
 
 -- Changelog
--- TODO: L["DATE_FORMAT"] = "%month%-%day%-%year%"
+-- TODO: L["CHANGELOG_DATE_FORMAT"] = "%month%-%day%-%year%"
 L["IMPORTANT"] = "Wichtig"
 L["NEW"] = "Neu"
 L["IMPROVEMENT"] = "Verbesserung"
