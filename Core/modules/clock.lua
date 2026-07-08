@@ -141,19 +141,18 @@ local function FormatTimestampDateTime(timestamp)
     end
 
     local timeFormat = xb.db.profile.modules.clock.timeFormat
-    local d = date("*t", timestamp)
-    d.sec = 0
-    local truncated = time(d)
+    local truncated = math.ceil(timestamp / 60) * 60
+    local d = date("*t", truncated)
     local dateText = formatDateFromParts(d.day, d.month)
     local timeText = date(ClockModule.timeFormats[timeFormat], truncated)
     return formatDateAndTime(dateText, timeText)
 end
 
-local function FormatLockoutResetDateTime(resetSeconds)
-    if not resetSeconds or resetSeconds <= 0 or not GetServerTime then
+local function FormatLockoutResetDateTime(resetAt)
+    if not resetAt or resetAt <= 0 then
         return nil
     end
-    return FormatTimestampDateTime(GetServerTime() + resetSeconds)
+    return FormatTimestampDateTime(resetAt)
 end
 
 local function formatLockoutLabel(entry)
@@ -225,7 +224,7 @@ local function formatLockoutDetail(entry)
         and entry.isRaid and entry.numEncounters and entry.numEncounters > 0 and BOSSES_KILLED then
         parts[#parts + 1] = string.format(BOSSES_KILLED, entry.encounterProgress or 0, entry.numEncounters)
     end
-    local resetText = FormatLockoutResetDateTime(entry.reset)
+    local resetText = FormatLockoutResetDateTime(entry.resetAt)
     if resetText then
         parts[#parts + 1] = resetText
     end
@@ -243,12 +242,16 @@ local function collectSavedLockouts()
         local name, _, reset, difficultyId, locked, _, _, isRaid, _, difficultyName, numEncounters, encounterProgress =
             GetSavedInstanceInfo(i)
         if locked and name then
+            local resetAt
+            if reset and reset > 0 and GetServerTime then
+                resetAt = math.ceil((GetServerTime() + reset) / 60) * 60
+            end
             local entry = {
                 name = name,
                 isRaid = isRaid,
                 difficultyId = difficultyId,
                 difficultyName = difficultyName,
-                reset = reset,
+                resetAt = resetAt,
                 numEncounters = numEncounters,
                 encounterProgress = encounterProgress,
             }
@@ -309,6 +312,8 @@ function ClockModule:OnInitialize()
     self.elapsed = 0
 
     self.instanceInfoReady = false
+    self.cachedLockoutsRaids = {}
+    self.cachedLockoutsDungeons = {}
 
     self.functions = {}
 end
@@ -327,6 +332,8 @@ function ClockModule:OnEnable()
     self:RegisterEvent("PLAYER_REGEN_ENABLED", "OnLeaveCombat")
     self:RegisterEvent("UPDATE_INSTANCE_INFO", "OnInstanceInfoUpdate")
     self.instanceInfoReady = false
+    self.cachedLockoutsRaids = {}
+    self.cachedLockoutsDungeons = {}
     if RequestRaidInfo then
         RequestRaidInfo()
     else
@@ -518,6 +525,10 @@ function ClockModule:SetClockColor()
     end
 end
 
+function ClockModule:RefreshLockoutCache()
+    self.cachedLockoutsRaids, self.cachedLockoutsDungeons = collectSavedLockouts()
+end
+
 function ClockModule:BuildLockoutTooltip(r, g, b)
     local opts = xb.db.profile.modules.clock
     if not opts.showLockoutsInTooltip then
@@ -528,7 +539,8 @@ function ClockModule:BuildLockoutTooltip(r, g, b)
         return
     end
 
-    local raids, dungeons = collectSavedLockouts()
+    local raids = self.cachedLockoutsRaids or {}
+    local dungeons = self.cachedLockoutsDungeons or {}
     local hasRaids = #raids > 0
     local hasDungeons = #dungeons > 0
 
@@ -625,6 +637,7 @@ end
 
 function ClockModule:OnInstanceInfoUpdate()
     self.instanceInfoReady = true
+    self:RefreshLockoutCache()
     if self.clockTextFrame and GameTooltip:IsOwned(self.clockTextFrame) then
         self:ShowTooltip()
     end
